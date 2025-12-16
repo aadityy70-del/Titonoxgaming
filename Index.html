@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="TITONOXGAMING - Minecraft & Gaming Destruction">
+    <title>TITONOXGAMING - ENTER THE NETHER</title>
+    <!-- Minecraft Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Minecraft&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #000;
+            --red: #ff0033;
+            --cyan: #00ffff;
+            --purple: #8b00ff;
+            --glow-red: 0 0 40px var(--red), 0 0 80px var(--red);
+            --glow-cyan: 0 0 40px var(--cyan), 0 0 80px var(--cyan);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body {
+            height: 100%;
+            overflow-x: hidden;
+            background: var(--bg);
+        }
+        body {
+            font-family: 'Minecraft', 'Courier New', monospace;
+            color: #fff;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            width: 100%;
+        }
+
+        /* Nether Particles - Background mein tagda feel */
+        body::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: 
+                radial-gradient(circle at 30% 50%, var(--purple) 1px, transparent 1px),
+                radial-gradient(circle at 70% 30%, var(--red) 1px, transparent 1px),
+                radial-gradient(circle at 50% 80%, var(--cyan) 1px, transparent 1px);
+            background-size: 80px 80px;
+            opacity: 0.4;
+            animation: netherFlow 25s linear infinite;
+            pointer-events: none; z-index: 1;
+        }
+        @keyframes netherFlow { 0% { background-position: 0 0; } 100% { background-position: 100px 100px; } }
+
+        /* Title - Static, Chota kiya, Clean Glow */
+        .title {
+            color: var(--red);
+            font-size: clamp(2rem, 8vw, 5rem);   /* Chota aur mobile-friendly */
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            text-shadow: var(--glow-red);
+            text-align: center;
+        }
+
+        /* Hero */
+        #home {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 60px 20px;
+        }
+        .subtitle {
+            font-size: clamp(1.3rem, 4.5vw, 2rem);
+            margin: 40px 0 60px;
+            color: var(--cyan);
+            text-shadow: var(--glow-cyan);
+            opacity: 0.95;
+        }
+
+        /* Buttons */
+        .cta-btn {
+            padding: 24px 60px;
+            font-size: clamp(1.3rem, 4vw, 1.8rem);
+            min-height: 70px;
+            border-radius: 20px;
+            margin: 20px;
+            cursor: pointer;
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .main-sub {
+            background: var(--red);
+            color: #000;
+            border: none;
+        }
+        .main-sub:hover {
+            transform: translateY(-10px) scale(1.1);
+            box-shadow: 0 20px 50px rgba(255,0,51,0.4);
+        }
+        .more-channels {
+            background: transparent;
+            border: 5px solid var(--cyan);
+            color: var(--cyan);
+        }
+        .more-channels:hover {
+            background: var(--cyan);
+            color: #000;
+            transform: translateY(-10px) scale(1.1);
+        }
+        .cta-btn::after {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            width: 0; height: 0;
+            background: rgba(255,255,255,0.4);
+            border-radius: 50%;
+            transform: translate(-50%,-50%);
+            transition: all 0.7s ease;
+        }
+        .cta-btn:hover::after {
+            width: 500px;
+            height: 500px;
+        }
+
+        /* Platforms */
+        .platform-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 80px;
+        }
+        .platform-btn {
+            background: rgba(30,0,0,0.7);
+            border: 4px solid var(--cyan);
+            padding: 30px;
+            border-radius: 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            text-decoration: none;
+            color: #fff;
+            transition: all 0.6s ease;
+            width: 160px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .platform-btn img {
+            width: 80px;
+            height: 80px;
+            filter: drop-shadow(0 0 20px var(--cyan));
+            transition: 0.4s;
+        }
+        .platform-btn:hover {
+            background: rgba(50,0,0,0.8);
+            border-color: var(--red);
+            transform: translateY(-15px) scale(1.15);
+            box-shadow: 0 25px 60px rgba(255,0,51,0.3);
+        }
+        .platform-btn:hover img {
+            filter: drop-shadow(0 0 40px var(--red));
+        }
+
+        /* Live Time */
+        #live-time {
+            font-size: clamp(1rem, 3vw, 1.4rem);
+            color: var(--cyan);
+            text-shadow: 0 0 20px var(--cyan);
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        /* Channels */
+        #channels {
+            display: none;
+            min-height: 100vh;
+            padding: 80px 20px;
+        }
+        #channels.active { display: block; }
+        .channels-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .channel-card {
+            background: rgba(20,0,0,0.9);
+            border: 3px solid var(--red);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            transition: all 0.5s ease;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+        }
+        .channel-card:hover {
+            transform: translateY(-20px);
+            box-shadow: 0 30px 70px rgba(255,0,51,0.3);
+        }
+        .channel-card h2 {
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
+            color: var(--cyan);
+            text-shadow: var(--glow-cyan);
+            margin-bottom: 20px;
+        }
+        .sub-btn {
+            background: var(--red);
+            color: #fff;
+            padding: 18px 40px;
+            border-radius: 20px;
+            font-size: 1.3rem;
+            transition: all 0.4s;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .sub-btn:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(255,0,51,0.4);
+        }
+        .videos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        .video-embed iframe {
+            width: 100%;
+            height: 220px;
+            border: 4px solid var(--red);
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="home" class="container">
+        <h1 class="title">TITONOXGAMING</h1>
+        <p class="subtitle">DESTROY BLOCKS. DOMINATE WORLDS.</p>
+        <div id="live-time"></div>
+        <div>
+            <a href="https://www.youtube.com/@TitonoxGaming?sub_confirmation=1" target="_blank" class="cta-btn main-sub">SUBSCRIBE NOW</a>
+            <button onclick="toggleSection('channels')" class="cta-btn more-channels">ENTER CHANNELS</button>
+        </div>
+
+        <div class="platform-buttons">
+            <a href="https://facebook.com/share/17gWKkgSHU" target="_blank" rel="noopener" class="platform-btn">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_(2019).svg" alt="Facebook">
+                <span>Facebook</span>
+            </a>
+            <a href="https://t.me/titonoxgaming" target="_blank" rel="noopener" class="platform-btn">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram">
+                <span>Telegram</span>
+            </a>
+            <a href="https://whatsapp.com/channel/0029Vb7KdPS5Ejxu5HpcAS2k" target="_blank" rel="noopener" class="platform-btn">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+                <span>WhatsApp</span>
+            </a>
+            <a href="https://www.instagram.com/titonoxgaming/" target="_blank" rel="noopener" class="platform-btn">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram">
+                <span>Instagram</span>
+            </a>
+            <a href="https://discord.gg/4phPHbwbb" target="_blank" rel="noopener" class="platform-btn">
+                <img src="https://upload.wikimedia.org/wikipedia/en/9/98/Discord_logo.svg" alt="Discord">
+                <span>Discord</span>
+            </a>
+        </div>
+    </div>
+
+    <div id="channels" class="container">
+        <h2 style="text-align:center; color:var(--cyan); text-shadow:var(--glow-cyan); font-size:clamp(2.2rem,7vw,3.5rem); margin-bottom:60px;">MY CHANNELS</h2>
+        <div class="channels-grid">
+            <div class="channel-card">
+                <h2>@TitonoxGaming</h2>
+                <p>Epic Minecraft Builds & Gaming Destruction</p>
+                <a href="https://www.youtube.com/@TitonoxGaming?sub_confirmation=1" target="_blank" class="sub-btn">Subscribe</a>
+                <div class="videos-grid">
+                    <div class="video-embed"><iframe src="https://www.youtube.com/embed/rNolvq_05go" loading="lazy" allowfullscreen></iframe></div>
+                    <div class="video-embed"><iframe src="https://www.youtube.com/embed/Ocqg3CaCT38" loading="lazy" allowfullscreen></iframe></div>
+                </div>
+            </div>
+            <div class="channel-card">
+                <h2>@aaditycraftunboxer</h2>
+                <p>Craft, Unboxing & Creative Gameplay</p>
+                <a href="https://www.youtube.com/@aaditycraftunboxer?sub_confirmation=1" target="_blank" class="sub-btn">Subscribe</a>
+                <div class="videos-grid"><p style="color:#888; font-size:1.3rem; padding:40px 0;">Arsenal Empty – Reload Soon</p></div>
+            </div>
+            <div class="channel-card">
+                <h2>@acsongandvlogs</h2>
+                <p>Songs, Vlogs & Real Life Vibes</p>
+                <a href="https://www.youtube.com/@acsongandvlogs?sub_confirmation=1" target="_blank" class="sub-btn">Subscribe</a>
+                <div class="videos-grid"><p style="color:#888; font-size:1.3rem; padding:40px 0;">Fresh Content Loading – Lock In</p></div>
+            </div>
+        </div>
+        <div style="text-align:center; margin-top:80px;">
+            <button onclick="toggleSection('home')" class="cta-btn more-channels">← Back to Nether</button>
+        </div>
+    </div>
+
+    <script>
+        function toggleSection(id) {
+            document.getElementById('home').style.display = (id === 'home') ? 'flex' : 'none';
+            document.getElementById('channels').classList.toggle('active', id === 'channels');
+        }
+
+        function updateTime() {
+            const now = new Date();
+            const timeStr = now.toLocaleString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            document.getElementById('live-time').textContent = `Live Time: ${timeStr}`;
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
+    </script>
+</body>
+</html>
